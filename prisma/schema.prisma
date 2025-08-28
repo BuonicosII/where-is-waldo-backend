@@ -13,3 +13,26 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Game {
+  id             String   @id @default(uuid())
+  player         String
+  startDate      DateTime
+  endDate        DateTime
+  subjectOne     Subject  @relation("subOne", fields: [subjectOneId], references: [id])
+  subjectOneId   String
+  subjectTwo     Subject  @relation("subTwo", fields: [subjectTwoId], references: [id])
+  subjectTwoId   String
+  subjectThree   Subject  @relation("subThree", fields: [subjectThreeId], references: [id])
+  subjectThreeId String
+}
+
+model Subject {
+  id    String @id @default(uuid())
+  num   Int
+  x     Int
+  y     Int
+  One   Game[] @relation("subOne")
+  Two   Game[] @relation("subTwo")
+  Three Game[] @relation("subThree")
+}
