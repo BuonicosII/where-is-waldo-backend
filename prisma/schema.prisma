@@ -15,16 +15,16 @@ datasource db {
 }
 
 model Game {
-  id             String   @id @default(uuid())
-  player         String
+  id             String    @id @default(uuid())
+  player         String?
   startDate      DateTime
-  endDate        DateTime
-  subjectOne     Subject  @relation("subOne", fields: [subjectOneId], references: [id])
-  subjectOneId   String
-  subjectTwo     Subject  @relation("subTwo", fields: [subjectTwoId], references: [id])
-  subjectTwoId   String
-  subjectThree   Subject  @relation("subThree", fields: [subjectThreeId], references: [id])
-  subjectThreeId String
+  endDate        DateTime?
+  subjectOne     Subject?  @relation("subOne", fields: [subjectOneId], references: [id])
+  subjectOneId   String?
+  subjectTwo     Subject?  @relation("subTwo", fields: [subjectTwoId], references: [id])
+  subjectTwoId   String?
+  subjectThree   Subject?  @relation("subThree", fields: [subjectThreeId], references: [id])
+  subjectThreeId String?
 }
 
 model Subject {
