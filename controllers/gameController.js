@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import passport from "../passport-config.js";
 import { issueJWT } from "../jwt-config.js";
 import { PrismaClient } from "../generated/prisma/client.js";
+import { body, validationResult } from "express-validator";
 const prisma = new PrismaClient();
 
 export const create_game = asyncHandler(async (req, res, next) => {
@@ -27,4 +28,34 @@ export const get_game = [
   (req, res) => {
     res.status(200).json(req.user);
   },
+];
+
+export const update_game_end = [
+  passport.authenticate("jwt", { session: false }),
+  body("endDate")
+    .exists()
+    .not()
+    .isEmpty()
+    .withMessage("endDate cannot be empty")
+    .isISO8601()
+    .withMessage("Date is not ISO08601"),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(200).json(errors.array());
+    } else {
+      try {
+        const game = await prisma.game.update({
+          where: { id: req.user.id },
+          data: {
+            endDate: new Date(req.body.endDate),
+          },
+        });
+        res.status(200).json(game);
+      } catch (err) {
+        return next(err);
+      }
+    }
+  }),
 ];
