@@ -59,3 +59,31 @@ export const update_game_end = [
     }
   }),
 ];
+
+export const update_game_player = [
+  passport.authenticate("jwt", { session: false }),
+  body("name")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Name required"),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(200).json(errors.array());
+    } else {
+      try {
+        const game = await prisma.game.update({
+          where: { id: req.user.id },
+          data: {
+            player: req.body.name,
+          },
+        });
+        res.status(200).json(game);
+      } catch (err) {
+        return next(err);
+      }
+    }
+  }),
+];
