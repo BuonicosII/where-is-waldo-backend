@@ -32,7 +32,7 @@ model Subject {
   num   Int
   x     Int
   y     Int
-  One   Game[] @relation("subOne")
-  Two   Game[] @relation("subTwo")
-  Three Game[] @relation("subThree")
+  one   Game[] @relation("subOne")
+  two   Game[] @relation("subTwo")
+  three Game[] @relation("subThree")
 }
