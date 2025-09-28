@@ -3,6 +3,7 @@ import passport from "../passport-config.js";
 import { issueJWT } from "../jwt-config.js";
 import { PrismaClient } from "../generated/prisma/client.js";
 import { body, validationResult } from "express-validator";
+import { getTopGames } from "../generated/prisma/sql/getTopGames.js";
 const prisma = new PrismaClient();
 
 export const create_game = asyncHandler(async (req, res, next) => {
@@ -87,3 +88,12 @@ export const update_game_player = [
     }
   }),
 ];
+
+export const get_top_games = asyncHandler(async (req, res, next) => {
+  try {
+    const top_games = await prisma.$queryRawTyped(getTopGames());
+    res.status(200).json(top_games);
+  } catch (err) {
+    return next(err);
+  }
+});

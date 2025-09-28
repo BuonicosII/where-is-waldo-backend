@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   create_game,
   get_game,
+  get_top_games,
   update_game_end,
   update_game_player,
 } from "../controllers/gameController.js";
@@ -17,5 +18,6 @@ router.put("/game/enddate", update_game_end);
 router.put("/game/player", update_game_player);
 router.post("/subject", create_subject);
 router.put("/subject", update_subject);
+router.get("/game/top-games", get_top_games);
 
 export default router;
