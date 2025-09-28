@@ -17,6 +17,11 @@ passport.use(
         where: {
           id: jwt_payload.sub,
         },
+        include: {
+          subjectOne: true,
+          subjectTwo: true,
+          subjectThree: true,
+        },
       });
       if (!game) {
         return done(null, false);

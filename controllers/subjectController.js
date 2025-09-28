@@ -46,15 +46,19 @@ export const update_subject = [
             },
           });
 
-          const subjectUpdated = await prisma.subject.update({
-            where: {
-              id: subject.id,
-            },
-            data: {
-              one: { connect: { id: req.user.id } },
-            },
-          });
-          res.status(200).json(subjectUpdated);
+          if (!subject) {
+            res.status(200).json({ message: "Waldo is not in the square" });
+          } else {
+            const subjectUpdated = await prisma.subject.update({
+              where: {
+                id: subject.id,
+              },
+              data: {
+                one: { connect: { id: req.user.id } },
+              },
+            });
+            res.status(200).json(subjectUpdated);
+          }
         } else if (+req.body.subject === 2) {
           const subject = await prisma.subject.findFirst({
             where: {
@@ -67,16 +71,19 @@ export const update_subject = [
               ],
             },
           });
-
-          const subjectUpdated = await prisma.subject.update({
-            where: {
-              id: subject.id,
-            },
-            data: {
-              one: { connect: { id: req.user.id } },
-            },
-          });
-          res.status(200).json(subjectUpdated);
+          if (!subject) {
+            res.status(200).json({ message: "Waldo is not in the square" });
+          } else {
+            const subjectUpdated = await prisma.subject.update({
+              where: {
+                id: subject.id,
+              },
+              data: {
+                one: { connect: { id: req.user.id } },
+              },
+            });
+            res.status(200).json(subjectUpdated);
+          }
         } else if (+req.body.subject === 3) {
           const subject = await prisma.subject.findFirst({
             where: {
@@ -89,16 +96,19 @@ export const update_subject = [
               ],
             },
           });
-
-          const subjectUpdated = await prisma.subject.update({
-            where: {
-              id: subject.id,
-            },
-            data: {
-              one: { connect: { id: req.user.id } },
-            },
-          });
-          res.status(200).json(subjectUpdated);
+          if (!subject) {
+            res.status(200).json({ message: "Waldo is not in the square" });
+          } else {
+            const subjectUpdated = await prisma.subject.update({
+              where: {
+                id: subject.id,
+              },
+              data: {
+                one: { connect: { id: req.user.id } },
+              },
+            });
+            res.status(200).json(subjectUpdated);
+          }
         } else {
           res.status(200).json({ message: "Waldo is not in the square" });
         }
