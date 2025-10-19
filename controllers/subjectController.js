@@ -79,7 +79,7 @@ export const update_subject = [
                 id: subject.id,
               },
               data: {
-                one: { connect: { id: req.user.id } },
+                two: { connect: { id: req.user.id } },
               },
             });
             res.status(200).json(subjectUpdated);
@@ -104,7 +104,7 @@ export const update_subject = [
                 id: subject.id,
               },
               data: {
-                one: { connect: { id: req.user.id } },
+                three: { connect: { id: req.user.id } },
               },
             });
             res.status(200).json(subjectUpdated);
